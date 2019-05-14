@@ -1,4 +1,5 @@
- def lengthOfLongestSubstring(self, s):
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
         """
         :type s: str
         :rtype: int
@@ -6,25 +7,22 @@
         longest_len = 0
         current_len = 0
         cursub=[]
-        s_list = list(s)
-        for i in range(len(s_list)):
-            if not cursub.count(s_list[i]):
-                cursub.append(s_list[i])
+        del_index = 0
+        for i in range(len(s)):
+            if not s[i] in cursub:
+                cursub.append(s[i])
                 
             else:
                 current_len = len(cursub)
                 if current_len > longest_len:
                     longest_len = current_len
-                if cursub.pop() == s_list[i]:
-                    cursub = [s_list[i]]
-                else:
-                    cursub.append(s_list[i-1])
-                index = cursub.index(s_list[i])
-                repeat_ = cursub
-                for j in range(index+1):
-                    cursub.remove(repeat_[j])
-                cursub.append(s_list[i])
-            if i == len(s_list)-1:
+                
+                while s[i] in cursub:
+                    del_index += 1
+                    cursub.remove(s[del_index])
+                    
+                cursub.append(s[i])
+            if i == len(s)-1:
                 current_len = len(cursub)
                 if current_len > longest_len:
                     longest_len = current_len
