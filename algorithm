@@ -1,30 +1,20 @@
 class Solution(object):
-    def lengthOfLongestSubstring(self, s):
+    def longestPalindrome(self, s):
         """
         :type s: str
-        :rtype: int
+        :rtype: str
         """
-        longest_len = 0
-        current_len = 0
-        cursub=[]
-        del_index = 0
-        for i in range(len(s)):
-            if not s[i] in cursub:
-                cursub.append(s[i])
-                
-            else:
-                current_len = len(cursub)
-                if current_len > longest_len:
-                    longest_len = current_len
-                
-                while s[i] in cursub:
-                    del_index += 1
-                    cursub.remove(s[del_index])
-                    
-                cursub.append(s[i])
-            if i == len(s)-1:
-                current_len = len(cursub)
-                if current_len > longest_len:
-                    longest_len = current_len
-                
-        return longest_len
+        cur_rep_len = 0
+        longest_rep_len = 0
+        longest_rep_str = ''
+        cur_rep_str = ''
+        del_index = 0 #用于在检测到重复字母时，删除取原串里与子串重复的字符
+        for char in s:
+            cur_rep_len += 1
+            
+            if char in cur_rep_str:
+                if cur_rep_len > longest_rep_len:
+                    longest_rep_len = cur_rep_len
+                cur_rep_str.remove(char) #从串的头部移除重复的字符
+                cur_rep_str.append(char) #在串的尾部添加重复的字符,当前长度不变
+        
