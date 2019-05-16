@@ -3,18 +3,18 @@ class Solution(object):
         """
         :type s: str
         :rtype: str
+        最长回文子串一定是串中第一个与最后一个相同字母之间的子串
         """
         cur_rep_len = 0
         longest_rep_len = 0
         longest_rep_str = ''
-        cur_rep_str = ''
-        del_index = 0 #用于在检测到重复字母时，删除取原串里与子串重复的字符
+        cur_index = 0
         for char in s:
-            cur_rep_len += 1
-            
-            if char in cur_rep_str:
-                if cur_rep_len > longest_rep_len:
+            cur_index += 1 #记录当前符号位置
+            if char in s[:cur_index]:
+                first_index = s.index(char)
+                if (cur_index - first_index) > longest_rep_len:
                     longest_rep_len = cur_rep_len
-                cur_rep_str.remove(char) #从串的头部移除重复的字符
-                cur_rep_str.append(char) #在串的尾部添加重复的字符,当前长度不变
-        
+                    longest_rep_str = s[first_index:cur_index-1]
+            
+        return longest_rep_str
